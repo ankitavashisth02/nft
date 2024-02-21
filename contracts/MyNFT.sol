@@ -12,7 +12,7 @@ contract MyNFT is ERC721URIStorage , Ownable {
 
     constructor() ERC721("Testnet","TEST") Ownable() payable {}
 
-    function mintNFT(string memory tokenURI) public payable onlyOwner returns(uint256) {
+    function mintNFT(string memory tokenURI) public payable returns(uint256) {
         _tokenIds.increment();
 
         uint256 newItemId = _tokenIds.current();
