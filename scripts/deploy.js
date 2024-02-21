@@ -6,8 +6,9 @@
 // global scope, and execute the script.
 const hre = require("hardhat");
 
+
 async function main() {
-  const MyNft = await ethers.getContractFactory("MyNFT");
+  const MyNft = await hre.ethers.getContractFactory("MyNFT");
   const myNFT = await MyNft.deploy();
   console.log("contract address" ,await myNFT.getAddress());
 }
@@ -20,4 +21,4 @@ main().catch((error) => {
 });
 
 
-// 0xdAbBe38e2dc3920812a547e442EA4A376A9361BE
+// 0x5FbDB2315678afecb367f032d93F642f64180aa3
