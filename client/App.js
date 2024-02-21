@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Body from "./Body";
-import abi from "../artifacts/contracts/MyNFT.sol/MyNFTold.json";
+import abi from "./assets/MyNFTold.json";
 import {Contract, BrowserProvider} from "ethers";
 import { useState, useEffect } from "react";
 
