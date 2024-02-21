@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Body from "./Body";
-import abi from "../artifacts/contracts/MyNFT.sol/MyNFT.json";
+import abi from "../artifacts/contracts/MyNFT.sol/MyNFTold.json";
 import {Contract, BrowserProvider} from "ethers";
 import { useState, useEffect } from "react";
 
@@ -15,8 +15,10 @@ const App = () => {
 
   useEffect(() => {
     const connectWallet = async () => {
-      const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+      const contractAddress = "0x4073e0Eb9ccAa02A8949291aB2906B4620abB9Bb";
       const contractAddressAbi = abi.abi;
+
+      // const contractAddressAbi = abi;
 
       try {
         const { ethereum } = window;
