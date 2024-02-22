@@ -8,15 +8,17 @@ const Body = ({ state }) => {
   const { contract } = state;
 
   const onHandleChange = async () => {
-    const amount = { value: parseEther("0.000000000001") };
-    console.log("Amount:", amount.value.toString());
     const tokenId = await contract._tokenIds();
+    const burnedAmount = ((Number(tokenId)-1)**2)/16000;
+    const amt = burnedAmount.toString();
+    const amount = { value: parseEther(amt) };
+    console.log("Amount:", amount.value.toString());
     
-    console.log("token Id:", tokenId);
     const burned = await contract.burn1(
       parseInt(tokenId),
       parseInt(amount.value.toString())
     );
+
     await burned.wait();
     toast("nft Burned !!");
     console.log("Burned");
@@ -25,7 +27,10 @@ const Body = ({ state }) => {
   async function mintNFT(tokenURI) {
     try {
       //console.log(tokenURI);
-      const options = { value: parseEther("0.01") };
+      const tokenId = await contract._tokenIds();
+      const mintingAmount = (Number(tokenId)**2)/16000;
+      const amt = (mintingAmount).toString();
+      const options = { value: parseEther(amt) };
       const txn = await contract.mintNFT(tokenURI, options);
       
       await txn.wait() ? toast("Minted"): toast("Error in minting !!");
