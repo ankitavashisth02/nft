@@ -8,7 +8,7 @@ const Body = ({ state }) => {
   const { contract } = state;
   const [loading, setLoading] = useState(false);
   const [burning, setBurning] = useState(false);
-  const [mintedAmount, setMintedAmount] = useState();
+  const [mintedAmount, setMintedAmount] = useState(0);
   const [burnState, setBurnState] = useState(false);
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const Body = ({ state }) => {
       const fetchBalance = async () => {
         // e.preventDefault();
         const fetchAmount = (await contract?.currentPrice());
+        console.log(fetchAmount);
         setMintedAmount(Number(fetchAmount) / 10 ** 18);
         console.log(
           "Amount that is fetched : ",
@@ -26,7 +27,7 @@ const Body = ({ state }) => {
     } catch (error) {
       console.log(error);
     }
-  }, [loading]);
+  },[contract]);
 
   const onHandleChange = async () => {
     const tokenId = await contract.tokenId1();
@@ -41,6 +42,7 @@ const Body = ({ state }) => {
     setBurning(false);
     toast("nft Burned !!");
     console.log("Burned");
+    setBurnState(false);
   };
 
   async function mintNFT(tokenURI) {
@@ -54,11 +56,11 @@ const Body = ({ state }) => {
       setLoading(true);
 
       const txn = await contract.mintNFT(tokenURI, options);
-
+      toast("Transaction is proccessing..");
       if(!await txn.wait()){
           setLoading(false)
       }
-      toast("Transaction is proccessing..");
+      
       await txn.wait();
       setLoading(false);
 
@@ -86,7 +88,7 @@ const Body = ({ state }) => {
 
       {burnState && (
         <button onClick={() => onHandleChange()}>
-          {burning ? "Burning.." : `Burn@ ${mintedAmount}`}
+          {burning ? "Burning.." : "Burn last token"}
         </button>
       )}
       <ToastContainer />
